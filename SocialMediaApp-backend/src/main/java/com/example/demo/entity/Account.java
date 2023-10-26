@@ -35,6 +35,6 @@ public class Account {
     @Column
     private String phoneNumber; //object string 'phoneNumber'
 
-    //depending on what the user selects it will establish functionality of the different accounts
-    private boolean admin, business, creator, personal, isDisabled;
+    @Column
+    private boolean disabled; //object boolean 'disabled' true/false
 }
