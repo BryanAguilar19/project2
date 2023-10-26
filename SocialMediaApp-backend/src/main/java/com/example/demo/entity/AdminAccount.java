@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.Entity;
 
 public class AdminAccount {
     int id;
