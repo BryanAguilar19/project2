@@ -48,7 +48,9 @@ public class Account {
     private List<Comment> comments;
 
     //depending on what the user selects it will establish functionality of the different accounts
+    @Column
     private Role role;
     
+    @Column
     private boolean isDisabled;
 }
