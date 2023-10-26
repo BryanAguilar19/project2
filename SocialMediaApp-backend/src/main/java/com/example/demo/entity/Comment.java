@@ -27,12 +27,12 @@ public class Comment {
     private long id;
 
     @ManyToOne
-    private long accountId;
+    private Account account;
 
     @Column
     private String comment;
 
     @ManyToOne
     @JsonIgnore
-    private long postId;
+    private Post post;
 }

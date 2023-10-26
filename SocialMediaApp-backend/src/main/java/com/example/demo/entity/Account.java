@@ -9,7 +9,6 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "AccountTable")    //name of my table
-
 @Getter //getters
 @Setter //setters
 @NoArgsConstructor

@@ -28,7 +28,7 @@ public class Post {
     private long id;
 
     @ManyToOne
-    private long accountId;
+    private Account account;
 
     @Column
     private String contentImageUrl;
