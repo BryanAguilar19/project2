@@ -48,5 +48,7 @@ public class Account {
     private List<Comment> comments;
 
     //depending on what the user selects it will establish functionality of the different accounts
-    private boolean admin, business, creator, personal, isDisabled;
+    private Role role;
+    
+    private boolean isDisabled;
 }
