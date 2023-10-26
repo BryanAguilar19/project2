@@ -38,6 +38,13 @@ public class Account {
     @Column
     private String phoneNumber; //object string 'phoneNumber'
 
+    //depending on what the user selects it will establish functionality of the different accounts
+    @Column
+    private Role role;
+
+    @Column
+    private boolean disabled; //object boolean 'disabled' true/false
+
     @OneToMany
     @JsonIgnore
     private List<Post> posts;
@@ -45,11 +52,4 @@ public class Account {
     @OneToMany
     @JsonIgnore
     private List<Comment> comments;
-
-    //depending on what the user selects it will establish functionality of the different accounts
-    @Column
-    private Role role;
-
-    @Column
-    private boolean disabled; //object boolean 'disabled' true/false
 }
