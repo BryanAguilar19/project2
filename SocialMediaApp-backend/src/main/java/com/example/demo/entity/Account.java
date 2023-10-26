@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.Entity;
 
 import lombok.*;
 
@@ -50,7 +50,7 @@ public class Account {
     //depending on what the user selects it will establish functionality of the different accounts
     @Column
     private Role role;
-    
+
     @Column
-    private boolean isDisabled;
+    private boolean disabled; //object boolean 'disabled' true/false
 }
