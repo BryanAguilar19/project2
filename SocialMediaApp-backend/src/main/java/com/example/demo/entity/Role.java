@@ -1,10 +1,8 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
-public class Role {
-    enum Roles{
-        CREATOR,
-        BUSINESS,
-        PERSONAL,
-        ADMIN
-    }
+public enum Role {
+    CREATOR,
+    BUSINESS,
+    PERSONAL,
+    ADMIN
 }
