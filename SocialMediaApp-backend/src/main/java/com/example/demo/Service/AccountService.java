@@ -9,11 +9,21 @@ import java.util.List;
 
 @Component
 public class AccountService {
-    //'UserRepository' object
+    //'AccountRepository' object
     AccountRepository accountRepository;
 
     @Autowired
     public AccountService(AccountRepository accountRepository){
         this.accountRepository = accountRepository;
+    }
+
+    //Getting all Accounts
+    public List<Account> getAllAccounts(){
+        return accountRepository.findAll();
+    }
+
+    //Saving all Accounts
+    public void saveAllAccounts(Account account){
+        accountRepository.save(account);
     }
 }
