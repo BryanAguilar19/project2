@@ -2,7 +2,11 @@ package com.example.demo.entity;
 
 import lombok.*;
 
+import java.util.List;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "AccountTable")    //name of my table
 
@@ -34,6 +38,14 @@ public class Account {
 
     @Column
     private String phoneNumber; //object string 'phoneNumber'
+
+    @OneToMany
+    @JsonIgnore
+    private List<Post> posts;
+
+    @OneToMany
+    @JsonIgnore
+    private List<Comment> comments;
 
     //depending on what the user selects it will establish functionality of the different accounts
     private boolean admin, business, creator, personal, isDisabled;
