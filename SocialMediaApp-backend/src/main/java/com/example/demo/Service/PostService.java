@@ -1,10 +1,12 @@
 package com.example.demo.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.Entity.Account;
 import com.example.demo.Entity.Post;
 import com.example.demo.Repository.PostRepository;
 
@@ -23,16 +25,17 @@ public class PostService {
      * @return The list of posts.
      */
     public List<Post> getAllPosts() {
-        return null;
+        return this.postRepository.findAll();
     }
 
     /**
      * Retrieves all of the posts that were created by a specific user.
      * 
+     * @param account The account from which the posts are associated with.
      * @return The list of posts.
      */
-    public List<Post> getAllPostsByAccount() {
-        return null;
+    public List<Post> getAllPostsByAccount(Account account) {
+        return this.postRepository.findPostsByAccount(account);
     }
 
     /**
@@ -43,28 +46,42 @@ public class PostService {
      * the post.
      */
     public Post addPost(Post post) {
-        return null;        
+        if(this.postRepository.findById(post.getId()).isPresent()) {
+            return null;
+        }
+
+        return this.postRepository.save(post);        
     }
 
     /**
      * Updates a post that is currently in the database.
      * 
-     * @param post The updated post.
+     * @param updatedPost The updated post.
      * @return The post that was updated. Returns null if no such post with
      * the given id exists in the database.
      */
-    public Post updatePost(Post post) {
-        return null;
+    public Post updatePost(Post updatedPost) {
+        long postId = updatedPost.getId();
+        Optional<Post> post = this.postRepository.findById(postId);
+
+        if(!post.isPresent()) {
+            return null;
+        }
+
+        Post postToUpdate = post.get();
+        postToUpdate.setContentImageUrl(updatedPost.getContentImageUrl());
+        postToUpdate.setContentText(updatedPost.getContentText());
+        postToUpdate.setLikes(updatedPost.getLikes());
+
+        return this.postRepository.save(postToUpdate);
     }
 
     /**
      * Deletes a post from the database.
      * 
      * @param post The post to be deleted.
-     * @return The deleted post. Returns null if no such post with
-     * the given id exists in the database.
      */
-    public Post deletePost(Post post) {
-        return null;
+    public void deletePost(Post post) {
+        this.postRepository.delete(post);
     }
 }
