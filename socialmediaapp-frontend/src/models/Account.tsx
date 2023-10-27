@@ -1,3 +1,5 @@
+import { Role } from "./Role";
+
 export interface Account {
     accountId: number,
     firstName: string,
