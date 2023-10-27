@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Entity
+@Entity(name = "post")
 @Data
 @ToString
 @EqualsAndHashCode
@@ -41,4 +41,54 @@ public class Post {
 
     @OneToMany
     private List<Comment> comments;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public String getContentImageUrl() {
+        return contentImageUrl;
+    }
+
+    public void setContentImageUrl(String contentImageUrl) {
+        this.contentImageUrl = contentImageUrl;
+    }
+
+    public String getContentText() {
+        return contentText;
+    }
+
+    public void setContentText(String contentText) {
+        this.contentText = contentText;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+
 }

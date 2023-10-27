@@ -21,7 +21,7 @@ public class CommentService {
     }
 
     /**
-     * Retrieves all of the comments that are currently in the database.
+     * Retrieves all the comments that are currently in the database.
      * 
      * @return The list of comments.
      */
@@ -30,7 +30,7 @@ public class CommentService {
     }
 
     /**
-     * Retrieves all of the comments that are associated with a particular post.
+     * Retrieves all the comments that are associated with a particular post.
      * 
      * @param post The post from which the comments are associated with.
      * @return The list of comments.

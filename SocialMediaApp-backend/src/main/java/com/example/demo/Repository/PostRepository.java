@@ -6,12 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.Entity.Account;
 import com.example.demo.Entity.Post;
+import org.springframework.data.jpa.repository.Query;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     /**
      * 
-     * @param account
+     * @param accountId
      * @return
      */
-    public List<Post> findPostsByAccount(Account account);
+    @Query(value = "SELECT * FROM post WHERE accountId = :accountId")
+    List<Post> findPostsByAccount(Long accountId);
 }

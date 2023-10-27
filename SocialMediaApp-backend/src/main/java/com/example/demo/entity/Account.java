@@ -8,13 +8,13 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "AccountTable")    //name of my table
-@Getter //getters
-@Setter //setters
+@Entity(name = "account")    //name of my table
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor //constructors
-@ToString   //toString lombok
-@EqualsAndHashCode  //equals and hashcode lombok
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,11 +45,11 @@ public class Account {
     @Column
     private boolean disabled; //object boolean 'disabled' true/false
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany  //one-to-many relationship with the 'Post' entity.
+    @JsonIgnore //commands JSON serialization to ignore the field when converting to JSON
     private List<Post> posts;
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany  //one-to-many relationship with the 'Comment' entity.
+    @JsonIgnore //commands JSON serialization to ignore the field when converting to JSON
     private List<Comment> comments;
 }

@@ -20,7 +20,7 @@ public class PostService {
     }
     
     /**
-     * Retrieves all of the posts currently in the database.
+     * Retrieves all the posts currently in the database.
      * 
      * @return The list of posts.
      */
@@ -29,13 +29,13 @@ public class PostService {
     }
 
     /**
-     * Retrieves all of the posts that were created by a specific user.
+     * Retrieves all the posts that were created by a specific user.
      * 
      * @param account The account from which the posts are associated with.
      * @return The list of posts.
      */
-    public List<Post> getAllPostsByAccount(Account account) {
-        return this.postRepository.findPostsByAccount(account);
+    public List<Post> getAllPostsByAccount(long accountID) {
+        return this.postRepository.findPostsByAccount(accountID);
     }
 
     /**
