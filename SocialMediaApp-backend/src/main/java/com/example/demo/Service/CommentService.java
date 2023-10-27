@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class CommentService {
      * @return The list of comments.
      */
     public List<Comment> getAllComments() {
-        return null;
+        return this.commentRepository.findAll();
     }
 
     /**
@@ -35,7 +36,7 @@ public class CommentService {
      * @return The list of comments.
      */
     public List<Comment> getAllCommentsByPost(Post post) {
-        return null;        
+        return this.commentRepository.findAllCommentsByPost(post);        
     }
 
     /**
@@ -46,7 +47,7 @@ public class CommentService {
      * @return The list of comments.
      */
     public List<Comment> getAllCommentsByAccount(Account account) {
-        return null;
+        return this.commentRepository.findAllCommentsByAccount(account);
     }
 
     /**
@@ -57,28 +58,36 @@ public class CommentService {
      * the comment.
      */
     public Comment addComment(Comment comment) {
-        return null;
+        return this.commentRepository.save(comment);
     }
 
     /**
      * Updated a comment that is currently in the database.
      * 
-     * @param comment The updated comment.
+     * @param updatedComment The updated comment.
      * @return The comment that was updated. Returns null if no such comment
      * with the given id exists in the database.
      */
-    public Comment updateComment(Comment comment) {
-        return null;
+    public Comment updateComment(Comment updatedComment) {
+        long commentId = updatedComment.getId();
+        Optional<Comment> comment = this.commentRepository.findById(commentId);
+
+        if(!comment.isPresent()) {
+            return null;
+        }
+
+        Comment commentToUpdate = comment.get();
+        commentToUpdate.setComment(updatedComment.getComment());
+
+        return this.commentRepository.save(commentToUpdate);
     }
 
     /**
      * Deletes a comment form the database.
      * 
      * @param comment The comment to be deleted.
-     * @return The deleted comment. Returns null if no such comment with the
-     * given id exists in the database.
      */
-    public Comment deleteComment(Comment comment) {
-        return null;
+    public void deleteComment(Comment comment) {
+        this.commentRepository.delete(comment);
     }
 }
