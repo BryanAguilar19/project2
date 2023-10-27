@@ -51,7 +51,7 @@ public class PostService {
      * 
      * @param post The updated post.
      * @return The post that was updated. Returns null if no such post with
-     * the given id exists in teh database.
+     * the given id exists in the database.
      */
     public Post updatePost(Post post) {
         return null;
@@ -62,7 +62,7 @@ public class PostService {
      * 
      * @param post The post to be deleted.
      * @return The deleted post. Returns null if no such post with
-     * the given id exists in teh database.
+     * the given id exists in the database.
      */
     public Post deletePost(Post post) {
         return null;
