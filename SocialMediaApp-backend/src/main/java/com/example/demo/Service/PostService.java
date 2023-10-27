@@ -18,43 +18,51 @@ public class PostService {
     }
     
     /**
+     * Retrieves all of the posts currently in the database.
      * 
-     * @return
+     * @return The list of posts.
      */
     public List<Post> getAllPosts() {
         return null;
     }
 
     /**
+     * Retrieves all of the posts that were created by a specific user.
      * 
-     * @return
+     * @return The list of posts.
      */
     public List<Post> getAllPostsByAccount() {
         return null;
     }
 
     /**
+     * Adds a new post to the database. 
      * 
-     * @param post
-     * @return
+     * @param post The post to be added.
+     * @return The post that was added. Returns null if it was unable to add
+     * the post.
      */
     public Post addPost(Post post) {
         return null;        
     }
 
     /**
+     * Updates a post that is currently in the database.
      * 
-     * @param post
-     * @return
+     * @param post The updated post.
+     * @return The post that was updated. Returns null if no such post with
+     * the given id exists in teh database.
      */
     public Post updatePost(Post post) {
         return null;
     }
 
     /**
+     * Deletes a post from the database.
      * 
-     * @param post
-     * @return
+     * @param post The post to be deleted.
+     * @return The deleted post. Returns null if no such post with
+     * the given id exists in teh database.
      */
     public Post deletePost(Post post) {
         return null;
