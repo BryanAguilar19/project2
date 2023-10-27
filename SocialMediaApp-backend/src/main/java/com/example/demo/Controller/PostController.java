@@ -22,7 +22,7 @@ public class PostController {
      * Method to create a new post
      * @param post The post to be created, provided as JSON in the request body.
      */
-    @PostMapping("insertPost")
+    @PostMapping("post/insert")
     public void insertPost(@RequestBody Post post){
         postService.addPost(post);
     }
@@ -31,7 +31,7 @@ public class PostController {
      * Retrieves a list of all posts.
      *  @return A list of Post objects representing all posts in the system.
      */
-    @GetMapping("getPost")
+    @GetMapping("post")
     public List<Post> getAllPost(){
         return postService.getAllPosts();
     }
@@ -50,7 +50,7 @@ public class PostController {
      * Deletes a post based on its information.
      * @param post The post object containing information about the post to be deleted.
      */
-    @GetMapping("deletePost")
+    @GetMapping("post/delete")
     public void deletePost(Post post){
         postService.deletePost(post);
     }
@@ -59,7 +59,7 @@ public class PostController {
      * Updates an existing post with new information.
      * @param post The post object containing updated information for the post to be modified.
      */
-    @GetMapping("updatePost")
+    @GetMapping("post/update")
     public void updatePost(Post post){
         postService.updatePost(post);
     }
