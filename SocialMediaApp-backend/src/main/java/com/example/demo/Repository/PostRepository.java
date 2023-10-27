@@ -14,6 +14,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * @param accountId
      * @return
      */
-    @Query(value = "SELECT * FROM post WHERE accountId = :accountId")
+    @Query(value = "FROM post WHERE accountId = :accountId")
     List<Post> findPostsByAccount(Long accountId);
 }
