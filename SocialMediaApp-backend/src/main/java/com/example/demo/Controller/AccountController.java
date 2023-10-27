@@ -21,7 +21,7 @@ public class AccountController {
 
     @PostMapping("accountRegister")
     public void postAccountAPI(@RequestBody Account account){
-        accountService.saveAllAccounts(account);
+        accountService.saveAccount(account);
     }
 
     @GetMapping("account")
