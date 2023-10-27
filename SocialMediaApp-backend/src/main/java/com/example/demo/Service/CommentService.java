@@ -29,15 +29,7 @@ public class CommentService {
         return this.commentRepository.findAll();
     }
 
-    /**
-     * Retrieves all the comments that are associated with a particular post.
-     * 
-     * @param post The post from which the comments are associated with.
-     * @return The list of comments.
-     */
-    public List<Comment> getAllCommentsByPost(Post post) {
-        return this.commentRepository.findAllCommentsByPost(post);        
-    }
+
 
     /**
      * Retrieves all of hte comments that are associated with a particular
@@ -46,8 +38,8 @@ public class CommentService {
      * @param account The account from which the comments are associated with.
      * @return The list of comments.
      */
-    public List<Comment> getAllCommentsByAccount(Account account) {
-        return this.commentRepository.findAllCommentsByAccount(account);
+    public List<Comment> getAllCommentsByAccount(long accountId) {
+        return this.commentRepository.findAllCommentsByAccount(accountId);
     }
 
     /**
