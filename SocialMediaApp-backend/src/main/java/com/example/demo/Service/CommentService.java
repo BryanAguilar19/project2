@@ -17,26 +17,53 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
+    /**
+     * 
+     * @return
+     */
     public List<Comment> getAllComments() {
         return null;
     }
 
+    /**
+     * 
+     * @return
+     */
     public List<Comment> getAllCommentsByPost() {
         return null;        
     }
 
+    /**
+     * 
+     * @return
+     */
     public List<Comment> getAllCommentsByAccount() {
         return null;
     }
 
+    /**
+     * 
+     * @param comment
+     * @return
+     */
     public Comment addComment(Comment comment) {
         return null;
     }
 
+    /**
+     * 
+     * @param comment
+     * @return
+     */
     public Comment updateComment(Comment comment) {
         return null;
     }
 
+    /**
+     * 
+     * @param comment
+     * @return
+     */
     public Comment deleteComment(Comment comment) {
         return null;
     }

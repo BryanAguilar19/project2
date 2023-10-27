@@ -16,23 +16,46 @@ public class PostService {
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
-
+    
+    /**
+     * 
+     * @return
+     */
     public List<Post> getAllPosts() {
         return null;
     }
 
+    /**
+     * 
+     * @return
+     */
     public List<Post> getAllPostsByAccount() {
         return null;
     }
 
+    /**
+     * 
+     * @param post
+     * @return
+     */
     public Post addPost(Post post) {
         return null;        
     }
 
+    /**
+     * 
+     * @param post
+     * @return
+     */
     public Post updatePost(Post post) {
         return null;
     }
 
+    /**
+     * 
+     * @param post
+     * @return
+     */
     public Post deletePost(Post post) {
         return null;
     }
