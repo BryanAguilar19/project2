@@ -1,8 +1,8 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
-import com.example.demo.Entity.Account;
-import com.example.demo.Entity.Post;
-import com.example.demo.Service.PostService;
+import com.example.demo.entity.Account;
+import com.example.demo.entity.Post;
+import com.example.demo.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

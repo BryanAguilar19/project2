@@ -1,10 +1,9 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Service.CommentService;
+import com.example.demo.entity.Comment;
+import com.example.demo.service.CommentService;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.Entity.Comment;
-import com.example.demo.Entity.Post;
-import com.example.demo.Entity.Account;
+
 
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class CommentController {
      * @param accountId
      * @return
      */
-    @GetMapping("/comment/{accountId")
+    @GetMapping("/comment/{accountId}")
     public List<Comment> getAllCommentsByAccount(@RequestBody long accountId){
         return commentService.getAllCommentsByAccount(accountId);
     }
