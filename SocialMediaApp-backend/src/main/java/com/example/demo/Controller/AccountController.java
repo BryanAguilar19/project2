@@ -33,13 +33,16 @@ public class AccountController {
 
     /**
      * 
-     * @param account The account to be posted.
+     * 
+     * Body:
+     * {
+     *    "accountName": "The accounts name",
+     *    "password": "The accounts password"
+     * }
+     * 
+     * @param submittedAccount
+     * @return
      */
-    @PostMapping("account")
-    public void postAccount(@RequestBody Account account) {
-        accountService.saveAccount(account);
-    }
-
     @PostMapping("/account/login")
     public ResponseEntity<Account> login(@RequestBody Account submittedAccount) {
         Account account = this.accountService.login(submittedAccount);
@@ -52,6 +55,26 @@ public class AccountController {
         return new ResponseEntity<Account>(account, status);
     }
 
+    /**
+     * 
+     * 
+     * Currently the minimum requirements to register an account is the account
+     * name and the password. 
+     * 
+     * Body:
+     * {
+     *    "accountName": "The accounts name",
+     *    "password": "The accounts password",
+     *    "firstName": "Some first name",
+     *    "lastName": "Some last name",
+     *    "email": "Some email",
+     *    "phoneNumber": "Some phone number",
+     *    "role": "Some role",
+     * }
+     * 
+     * @param submittedAccount The account to be registered.
+     * @return
+     */
     @PostMapping("/account/register")
     public ResponseEntity<Account> register(@RequestBody Account submittedAccount) {
         Account account = this.accountService.register(submittedAccount);
