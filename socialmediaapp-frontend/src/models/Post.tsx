@@ -1,7 +1,7 @@
 import { Account } from "./Account";
 
 export interface Post {
-    id: number,
+    id?: number,
     account: Account,
     imageUrl: string,
     description: string,
