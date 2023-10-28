@@ -1,11 +1,11 @@
 import { Role } from "./Role";
 
 export interface Account {
-    accountId: number,
-    firstName: string,
-    lastName: string,
+    accountId?: number,
     accountName: string,
     password: string,
+    firstName: string,
+    lastName: string,
     email: string,
     phoneNumber: string,
     role: Role

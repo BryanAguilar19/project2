@@ -1,26 +1,31 @@
 import { ChangeEvent, useState } from "react";
+import { APIRegisterCall } from "../service/AccountService";
+import { Account } from "../models/Account";
+import { Role } from "../models/Role";
+import { useNavigate } from "react-router-dom";
 
 export function RegisterForm() {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const navigate = useNavigate();
     const [accountName, setAccountName] = useState("");
     const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
 
     const updateInput = (synthEvent: ChangeEvent<HTMLInputElement>) => {
         switch(synthEvent.target.name) {
-            case "firstName":
-                setFirstName(synthEvent.target.value);
-                break;
-            case "lastName":
-                setLastName(synthEvent.target.value);
-                break;
             case "accountName":
                 setAccountName(synthEvent.target.value);
                 break;
             case "password":
                 setPassword(synthEvent.target.value);
+                break;
+            case "firstName":
+                setFirstName(synthEvent.target.value);
+                break;
+            case "lastName":
+                setLastName(synthEvent.target.value);
                 break;
             case "email":
                 setEmail(synthEvent.target.value);
@@ -33,23 +38,39 @@ export function RegisterForm() {
 
     function register() {
         console.log("Attempting to register!");
+
+        const account: Account = {
+            accountName: accountName,
+            password: password,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phoneNumber: phoneNumber,
+            role: Role.PERSONAL
+        }
+
+        APIRegisterCall(account)
+            .then(response => {
+                navigate("/login")
+            })
+            .catch((response) => console.log("ERROR: " + response))
     }
 
 
     return (
         <>
             <div>
-                <label>First Name:</label>
-                <input name = "firstName" value = {firstName} onChange = {updateInput}></input>
-
-                <label>Last Name:</label>
-                <input name = "lastName" value = {lastName} onChange = {updateInput}></input>
-
                 <label>Account Name:</label>
                 <input name = "accountName" value = {accountName} onChange = {updateInput}></input>
                  
                 <label>Password:</label>
                 <input name = "password" type = "password" value = {password} onChange = {updateInput}></input>
+
+                <label>First Name:</label>
+                <input name = "firstName" value = {firstName} onChange = {updateInput}></input>
+
+                <label>Last Name:</label>
+                <input name = "lastName" value = {lastName} onChange = {updateInput}></input>
 
                 <label>Email:</label>
                 <input name = "email" value = {email} onChange = {updateInput}></input>

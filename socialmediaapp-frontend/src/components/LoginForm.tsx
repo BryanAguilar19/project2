@@ -1,10 +1,15 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { APILoginCall } from "../service/AccountService";
+import { Account } from "../models/Account";
+import { AccountContext } from "../App";
 
 export function LoginForm() {
+    const accountContext = useContext(AccountContext);
     const navigate = useNavigate();
     const [accountName, setAccountName] = useState("");
     const [password, setPassword] = useState("");
+    const [account, setAccount] = useState<Account>();
 
     const updateInput = (synthEvent: ChangeEvent<HTMLInputElement>) => {
         switch(synthEvent.target.name) {
@@ -19,6 +24,17 @@ export function LoginForm() {
 
     function login() {
         console.log("Attempting to login!");
+
+        APILoginCall(accountName, password)
+            .then(response => {
+                console.log(response);
+                return response.json()
+            })
+            .then(account => {
+                console.log(account);
+                accountContext.setAccount(account);
+            })
+            .catch((response) => console.log("Some error occurred!" + response))
     }
 
     function redirectToRegister() {
