@@ -1,7 +1,9 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
 import com.example.demo.entity.Comment;
 import com.example.demo.service.CommentService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -14,61 +16,89 @@ import java.util.List;
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 public class CommentController {
-    CommentService commentService;
+    private CommentService commentService;
+
+    @Autowired
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
 
     /**
      * Returns all comments
+     * 
      * @return
      */
     @GetMapping("/comment")
-    public List<Comment> getAllComments(){
-        return commentService.getAllComments();
-
+    public List<Comment> getAllComments() {
+        return this.commentService.getAllComments();
     }
 
     /**
      * Get all comments by Account ID
-     * @param accountId
-     * @return
+     * 
+     * @param id The id of the account.
+     * @return The list of comments by that account.
      */
-    @GetMapping("/comment/{accountId}")
-    public List<Comment> getAllCommentsByAccount(@RequestBody long accountId){
-        return commentService.getAllCommentsByAccount(accountId);
+    @GetMapping("account/{id}/comment")
+    public List<Comment> getAllCommentsByAccount(@PathVariable long id){
+        return this.commentService.getAllCommentsByAccountId(id);
     }
 
     /**
-     * Add a new comment
-     * @param comment
-     * @return
+     * Get all of the comments from a post by the post's id.
+     * 
+     * @param id The id of the post.
+     * @return The list of comments for that post.
      */
-    @PostMapping("/comment")
-    public Comment addComment(@RequestBody Comment comment){
-        return commentService.addComment(comment);
+    @GetMapping("post/{id}/comment")
+    public List<Comment> getAllCommentsByPostId(@PathVariable long id) {
+        return this.commentService.getAllCommentsByPostId(id);
     }
 
     /**
-     * Updates/edits an existing comment
-     * @param updateComment
-     * @return
+     * Adds a new comment from an account to a post by the posts id as well as
+     * the accounts id.
+     * 
+     * Body: 
+     * {
+     *   "comment": "Some comment",
+     *   "account": {
+     *     "accountId": ID of the account making the comment
+     *   }
+     * }
+     * 
+     * @param id The id of the post.
+     * @param comment The comment to be posted.
+     * @return The comment that was posted.
      */
-    @PutMapping("/comment")
-    public Comment updateComment(@RequestBody Comment updateComment){
-        return commentService.updateComment(updateComment);
-
+    @PostMapping("post/{id}/comment")
+    public Comment addComment(@PathVariable long id, @RequestBody Comment comment){
+        return this.commentService.addComment(comment, id);
     }
 
     /**
-     * Deletes a comment
-     * @param delComment
-     */
-    @DeleteMapping("/comment")
-    public void deleteComment(@RequestBody Comment delComment){
-        this.commentService.deleteComment(delComment);
-
+     * Updates/edits an existing comment.
+     * 
+     * @param id The id of the post.
+     * @param comment The updated comment.
+     * @return The updated comment.
+     *
+    
+    @PutMapping("post/{id}/comment")
+    public Comment updateComment(@PathVariable long id, @RequestBody Comment comment){
+        return commentService.updateComment(comment);
     }
 
+    /**
+     * Deletes a comment from a specific post.
+     * 
+     * @param id The id of the post.
+     * @param comment The comment to be deleted.
+     *
+    @DeleteMapping("post/{id}/comment")
+    public void deleteComment(@PathVariable long id, @RequestBody Comment comment){
+        this.commentService.deleteComment(comment);
 
+    }
+    */
 }
