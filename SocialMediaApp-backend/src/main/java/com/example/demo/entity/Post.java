@@ -1,4 +1,4 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
 import java.util.List;
 
@@ -15,6 +15,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import com.example.demo.entity.Account;
+import com.example.demo.entity.Post;
+import com.example.demo.entity.Comment;
 
 @Entity(name = "post")
 @Data

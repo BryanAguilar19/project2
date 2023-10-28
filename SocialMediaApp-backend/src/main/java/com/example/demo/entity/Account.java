@@ -1,4 +1,4 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
 import lombok.*;
 
@@ -7,6 +7,9 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.demo.entity.Role;
+import com.example.demo.entity.Comment;
+import com.example.demo.entity.Post;
 
 @Entity(name = "account")    //name of my table
 @Getter

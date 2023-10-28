@@ -1,12 +1,12 @@
-package com.example.demo.Repository;
+package com.example.demo.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.Entity.Account;
-import com.example.demo.Entity.Comment;
-import com.example.demo.Entity.Post;
+import com.example.demo.entity.Account;
+import com.example.demo.entity.Comment;
+import com.example.demo.entity.Post;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -18,13 +18,14 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
      * @param post
      * @return
      */
-    public List<Comment> findAllCommentsByPost(Post post);
+    @Query(nativeQuery = true, value = "SELECT * FROM  comment WHERE post = :post")
+    List<Comment> findAllCommentsByPost(@PathVariable Post post);
 
     /**
-     * 
-     * @param account
+     *
+     * @param accountId
      * @return
      */
-    @Query(value = "SELECT * FROM comment WHERE accound_id = :accountId")
-    public List<Comment> findAllCommentsByAccount(@PathVariable long accountId);
+    @Query(nativeQuery = true, value = "SELECT * FROM comment WHERE account_id = :accountId")
+    List<Comment> findAllCommentsByAccount(@PathVariable long accountId);
 }

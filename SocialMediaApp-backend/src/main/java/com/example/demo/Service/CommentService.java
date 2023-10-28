@@ -1,4 +1,4 @@
-package com.example.demo.Service;
+package com.example.demo.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.Entity.Account;
-import com.example.demo.Entity.Comment;
-import com.example.demo.Entity.Post;
-import com.example.demo.Repository.CommentRepository;
+import com.example.demo.entity.Account;
+import com.example.demo.entity.Comment;
+import com.example.demo.entity.Post;
+import com.example.demo.repository.CommentRepository;
 
 @Component
 public class CommentService {
