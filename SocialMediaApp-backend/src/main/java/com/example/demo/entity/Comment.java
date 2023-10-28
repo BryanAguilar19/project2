@@ -10,12 +10,8 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
-import com.example.demo.entity.Account;
-import com.example.demo.entity.Post;
 
 @Entity
-
-
 @Data
 @ToString
 @EqualsAndHashCode
@@ -24,7 +20,7 @@ import com.example.demo.entity.Post;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long commentId;
 
     @ManyToOne
     private Account account;
@@ -35,36 +31,4 @@ public class Comment {
     @ManyToOne
     @JsonIgnore
     private Post post;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
 }

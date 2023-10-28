@@ -19,7 +19,7 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("accountRegister")
+    @PostMapping("account")
     public void postAccountAPI(@RequestBody Account account){
         accountService.saveAccount(account);
     }

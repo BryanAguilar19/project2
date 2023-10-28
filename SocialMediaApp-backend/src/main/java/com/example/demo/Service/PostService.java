@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,16 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.entity.Account;
+import com.example.demo.entity.Comment;
 import com.example.demo.entity.Post;
+import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.PostRepository;
 
 @Component
 public class PostService {
     PostRepository postRepository;
+    AccountRepository accountRepository;
 
     @Autowired
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, AccountRepository accountRepository) {
         this.postRepository = postRepository;
+        this.accountRepository = accountRepository;
     }
     
     /**
@@ -34,8 +39,8 @@ public class PostService {
      * @param account The account from which the posts are associated with.
      * @return The list of posts.
      */
-    public List<Post> getAllPostsByAccount(long accountID) {
-        return this.postRepository.findPostsByAccount(accountID);
+    public List<Post> getAllPostsByAccountId(long accountID) {
+        return this.postRepository.findPostsByAccountId(accountID);
     }
 
     /**
@@ -46,8 +51,23 @@ public class PostService {
      * the post.
      */
     public Post addPost(Post post) {
-        if(this.postRepository.findById(post.getId()).isPresent()) {
+        if(post.getAccount() == null || post.getImageUrl() == null || post.getDescription() == null) {
             return null;
+        }
+
+        Optional<Account> account = this.accountRepository.findById(post.getAccount().getAccountId());
+        
+        if(!account.isPresent()) {
+            return null;
+        }
+
+        post.setAccount(account.get());
+        post.setNumberOfLikes(0);
+
+        if(post.getComments() == null) {
+            post.setComments(new ArrayList<Comment>());
+        } else {
+            post.getComments().clear();
         }
 
         return this.postRepository.save(post);        
@@ -61,7 +81,7 @@ public class PostService {
      * the given id exists in the database.
      */
     public Post updatePost(Post updatedPost) {
-        long postId = updatedPost.getId();
+        long postId = updatedPost.getPostId();
         Optional<Post> post = this.postRepository.findById(postId);
 
         if(!post.isPresent()) {
@@ -69,9 +89,9 @@ public class PostService {
         }
 
         Post postToUpdate = post.get();
-        postToUpdate.setContentImageUrl(updatedPost.getContentImageUrl());
-        postToUpdate.setContentText(updatedPost.getContentText());
-        postToUpdate.setLikes(updatedPost.getLikes());
+        postToUpdate.setImageUrl(updatedPost.getImageUrl());
+        postToUpdate.setDescription(updatedPost.getDescription());
+        postToUpdate.setNumberOfLikes(updatedPost.getNumberOfLikes());
 
         return this.postRepository.save(postToUpdate);
     }
