@@ -1,4 +1,5 @@
 import { Account } from "./Account";
+import { Comment } from "../models/Comment"
 
 export interface Post {
     postId?: number,

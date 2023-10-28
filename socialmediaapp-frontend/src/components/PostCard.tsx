@@ -1,13 +1,15 @@
-import { SyntheticEvent, useContext, useState } from "react";
+import { SyntheticEvent, useContext, useEffect, useState } from "react";
 import { Post } from "../models/Post"
 import { postCommentAPI } from "../service/CommentService";
 import { putLikePostAPI } from "../service/PostService";
 import { AccountContext } from "../App";
 import { Comment } from "../models/Comment";
+import { CommentCard } from "./CommentCard";
 
 interface propsInterface{
     post:Post
 }
+
 export function PostCard(props:propsInterface){
 
     const accountContext = useContext(AccountContext);
@@ -118,12 +120,15 @@ export function PostCard(props:propsInterface){
                 
             Post ID: {props.post.postId}
             </h6>
+
+            
             <div>
                 Comment: <input value={commentInput} onChange={updateCommentInput}></input>
                 
                 <button onClick = {addComment}>Submit</button>                
             </div>
-            
+
+            {props.post.comments.map(comment => <CommentCard key={comment.id} comment={comment}></CommentCard>)}
         </div>
         </>
     )
