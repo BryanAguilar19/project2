@@ -46,7 +46,7 @@ public class PostService {
      * the post.
      */
     public Post addPost(Post post) {
-        if(this.postRepository.findById(post.getId()).isPresent()) {
+        if(this.postRepository.findById(post.getPostId()).isPresent()) {
             return null;
         }
 
@@ -61,7 +61,7 @@ public class PostService {
      * the given id exists in the database.
      */
     public Post updatePost(Post updatedPost) {
-        long postId = updatedPost.getId();
+        long postId = updatedPost.getPostId();
         Optional<Post> post = this.postRepository.findById(postId);
 
         if(!post.isPresent()) {
@@ -69,9 +69,9 @@ public class PostService {
         }
 
         Post postToUpdate = post.get();
-        postToUpdate.setContentImageUrl(updatedPost.getContentImageUrl());
-        postToUpdate.setContentText(updatedPost.getContentText());
-        postToUpdate.setLikes(updatedPost.getLikes());
+        postToUpdate.setImageUrl(updatedPost.getImageUrl());
+        postToUpdate.setDescription(updatedPost.getDescription());
+        postToUpdate.setNumberOfLikes(updatedPost.getNumberOfLikes());
 
         return this.postRepository.save(postToUpdate);
     }
