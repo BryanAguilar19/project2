@@ -5,6 +5,7 @@ import { postPostAPI } from "../service/PostService";
 
 export function CreatePostMenu() {
     const accountContext = useContext(AccountContext);
+
     const [imageUrl, setImageUrlInput] = useState("");
     const [description, setDescriptionInput] = useState("");
     
@@ -26,7 +27,7 @@ export function CreatePostMenu() {
             account: accountContext.account,
             imageUrl: imageUrl,
             description: description,
-            likes: 0,
+            numberOfLikes: 0,
             comments: []
         }
 

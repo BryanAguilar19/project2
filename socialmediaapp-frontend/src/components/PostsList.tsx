@@ -17,15 +17,7 @@ export function PostsList(){
     }, []);
     return (
         <>
-            {allPosts.map(post => <PostCard post={post}></PostCard>)}
+            {allPosts.map(post => <PostCard post={post} key={post.postId}></PostCard>)}
         </>
     )
-    
-    // return(
-    //     <>
-    //     <h1>PostsCard component</h1>          
-
-    //     <PostCard/>
-    //     </>
-    // )
 }

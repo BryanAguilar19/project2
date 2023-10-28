@@ -1,10 +1,10 @@
 import { Account } from "./Account";
 
 export interface Post {
-    id?: number,
+    postId?: number,
     account: Account,
     imageUrl: string,
     description: string,
-    likes: number,
+    numberOfLikes: number,
     comments: Comment[]
 }

@@ -47,7 +47,7 @@ function App() {
             <Route path = "/login" element = {<LoginForm></LoginForm>}></Route>
             <Route path = "/register" element = {<RegisterForm></RegisterForm>}></Route>
             <Route path = "/post" element = {<CreatePostPage></CreatePostPage>}></Route>
-            <Route path = "/allPosts" element = {<PostsPage></PostsPage>}></Route>
+            <Route path = "/allPosts" element = {<PostsPage></PostsPage>}></Route>            
           </Routes>
         </BrowserRouter>
       </AccountContext.Provider>

@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { Post } from "../models/Post";
 import { getAllPostsAPI } from "../service/PostService";
 import { PostCard } from "./PostCard";
+import { CommentCard } from "./CommentCard";
+import { Comment } from "../models/Comment";
 
 export function PostsList(){
 
-    const [allComments, setAllComments] = useState<Post[]>([])
+    const [allComments, setAllComments] = useState<Comment[]>([])
     useEffect(()=>{
         getAllPostsAPI().then(response => {
             return response.json()
@@ -14,7 +16,8 @@ export function PostsList(){
     }, []);
     return (
         <>
-            {allComments.map(post => <CommentCard post={post}></CommentCard>)}
+            {allComments.map(comment => <CommentCard key={comment.id} comment={comment}></CommentCard>)}
         </>
     )
+}
     

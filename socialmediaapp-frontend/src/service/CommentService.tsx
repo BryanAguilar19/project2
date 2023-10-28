@@ -1,4 +1,7 @@
 import { Post } from "../models/Post";
+import { Comment } from "../models/Comment";
+
+
 
 
 /**
@@ -6,13 +9,13 @@ import { Post } from "../models/Post";
  * @param post 
  * @returns 
  */
- export async function postPostAPI(post:Post){
+export async function postCommentAPI(id:number, comment:Comment){
     return await fetch(
-        "http://localhost:8080/post",
+        `http://localhost:8080/post/${id}/comment`,
         {
             mode:"cors",
             method:"POST",
-            body:JSON.stringify(post),
+            body:JSON.stringify(comment),
             headers:
             {
                 "access-control-allow-origin":"*",
@@ -21,33 +24,15 @@ import { Post } from "../models/Post";
             }
         })
 }
+
 /**
- * PUTs a like on a social media post
- * @param post 
+ * GETs all comments
  * @returns 
  */
-export async function putLikePostAPI(id: number, numberOfLikes: number){
-    return await fetch(
-        `http://localhost:8080/post/${id}/${numberOfLikes}`,
-        {
-            mode:"cors",
-            method:"PUT",            
-            headers:
-            {
-                "access-control-allow-origin":"*",
-                "access-control-allow-headers":"GET, POST, PUT, OPTIONS",
-                "content-type":"application/json"
-            }
-        })
-}
-/**
- * GETs all posts
- * @returns 
- */
- export async function getAllPostsAPI(){
+ export async function getAllCommentsAPI(){
 
     return await fetch(
-        "http://localhost:8080/post",
+        "http://localhost:8080/comments",
         {
             mode:"cors",
             method:"GET",

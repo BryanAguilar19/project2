@@ -1,34 +1,20 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { Comment } from "../models/Comment";
 
 
-export function CommentCard(){
+interface propsInterface{
+    comment:Comment
+}
 
-    const [commentInput, setCommentInput] = useState("");
-    
-    function updateCommentInput(event:SyntheticEvent){
-        let commentBox = event.target as HTMLTextAreaElement;
-        setCommentInput(commentBox.value);        
-    }    
+export function CommentCard(props:propsInterface){
 
 
-    function addComment(){
-    
-        let comment:Comment = {
-            
-            comment: string
-
-        }
     
 
     return (
         <>
-            <div>
-                Comment: <input value={commentInput} onChange={updateCommentInput}></input>
-                
-                <button onClick = {addComment}>Submit</button>                
-            </div>
+            
         </>
 
     )
-}
 }

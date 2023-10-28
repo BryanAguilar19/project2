@@ -1,7 +1,7 @@
 import { Account } from "./Account";
 
 export interface Comment {
-    id: number,
+    id?: number,
     account: Account,
     comment: string
 }
