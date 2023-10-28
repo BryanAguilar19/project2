@@ -24,16 +24,16 @@ public class Account {
     private long accountId;     //long object "accountId" unique identifier
 
     @Column
-    private String firstName;   //object string 'firstName'
-
-    @Column
-    private String lastName;    //object string 'lastName'
-
-    @Column
     private String accountName; //object string 'accountName'
 
     @Column
     private String password;    //object string 'password'
+
+    @Column
+    private String firstName;   //object string 'firstName'
+
+    @Column
+    private String lastName;    //object string 'lastName'
 
     @Column
     private String email;       //object string 'email'
@@ -46,7 +46,7 @@ public class Account {
     private Role role;
 
     @Column
-    private boolean disabled; //object boolean 'disabled' true/false
+    private boolean isDisabled; //object boolean 'isDisabled' true/false
 
     @OneToMany  //one-to-many relationship with the 'Post' entity.
     @JsonIgnore //commands JSON serialization to ignore the field when converting to JSON

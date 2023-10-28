@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.entity.Account;
 import com.example.demo.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,13 +21,69 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("account")
-    public void postAccountAPI(@RequestBody Account account){
-        accountService.saveAccount(account);
+    /**
+     * Retrieves all of the accounts in the database.
+     * 
+     * @return A list of the accounts.
+     */
+    @GetMapping("account")
+    public List<Account> getAccounts() {
+        return accountService.getAllAccounts();
     }
 
-    @GetMapping("account")
-    public List<Account> getAccountAPI(){
-        return accountService.getAllAccounts();
+    /**
+     * 
+     * 
+     * Body:
+     * {
+     *    "accountName": "The accounts name",
+     *    "password": "The accounts password"
+     * }
+     * 
+     * @param submittedAccount
+     * @return
+     */
+    @PostMapping("/account/login")
+    public ResponseEntity<Account> login(@RequestBody Account submittedAccount) {
+        Account account = this.accountService.login(submittedAccount);
+        HttpStatus status = HttpStatus.OK;
+
+        if(account == null) {
+            status = HttpStatus.UNAUTHORIZED;
+        }
+
+        return new ResponseEntity<Account>(account, status);
+    }
+
+    /**
+     * 
+     * 
+     * Currently the minimum requirements to register an account is the account
+     * name and the password. 
+     * 
+     * Body:
+     * {
+     *    "accountName": "The accounts name",
+     *    "password": "The accounts password",
+     *    "firstName": "Some first name",
+     *    "lastName": "Some last name",
+     *    "email": "Some email",
+     *    "phoneNumber": "Some phone number",
+     *    "role": "Some role",
+     * }
+     * 
+     * @param submittedAccount The account to be registered.
+     * @return
+     */
+    @PostMapping("/account/register")
+    public ResponseEntity<Account> register(@RequestBody Account submittedAccount) {
+        Account account = this.accountService.register(submittedAccount);
+        HttpStatus status = HttpStatus.CREATED;
+
+        if(account == null) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+
+        return new ResponseEntity<Account>(account, status);
     }
 }
