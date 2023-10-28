@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Account;
 import com.example.demo.entity.Post;
 import com.example.demo.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class PostController {
-    PostService postService;
+    private PostService postService;
 
     @Autowired
     public PostController(PostService postService){
@@ -19,53 +18,61 @@ public class PostController {
     }
 
     /**
-     * Method to create a new post
-     * @param post The post to be created, provided as JSON in the request body.
-     */
-    @PostMapping("post/insert")
-    public void insertPost(@RequestBody Post post){
-        postService.addPost(post);
-    }
-
-    /**
      * Retrieves a list of all posts.
-     *  @return A list of Post objects representing all posts in the system.
+     * 
+     * @return A list of Post objects representing all posts in the system.
      */
-    @GetMapping("post")
-    public List<Post> getAllPost(){
-        return postService.getAllPosts();
+    @GetMapping("/post")
+    public List<Post> getAllPost() {
+        return this.postService.getAllPosts();
     }
 
     /**
      * Retrieves posts associated with a specific account.
-     * @param accountId Unique identifier of the account to fetch posts.
+     * 
+     * @param id Unique identifier of the account to fetch posts.
      * @return A list of posts associated with the account identified by 'accountId'.
      */
-    @GetMapping("post/account/{accountId}")
-    public List<Post> getAllPostByAccount(@PathVariable("accountId") Long accountId){
-        return postService.getAllPostsByAccount(accountId);
+    @GetMapping("/account/{id}/post")
+    public List<Post> getAllPostByAccount(@PathVariable("id") long id){
+        return this.postService.getAllPostsByAccountId(id);
     }
 
     /**
-     * Deletes a post based on its information.
-     * @param post The post object containing information about the post to be deleted.
+     * Method to create a new post
+     * 
+     * Body: 
+     * {
+     *   "imageUrl": "The image url",
+     *   "description": "The post description",
+     *   "account": {
+     *      "accountId": ID of the account that is posting
+     *   }
+     * }
+     * 
+     * @param post The post to be created, provided as JSON in the request body.
      */
-    @GetMapping("post/delete")
-    public void deletePost(Post post){
-        postService.deletePost(post);
+    @PostMapping("/post")
+    public Post addPost(@RequestBody Post post){
+        return this.postService.addPost(post);
     }
 
     /**
      * Updates an existing post with new information.
      * @param post The post object containing updated information for the post to be modified.
-     */
-    @GetMapping("post/update")
+     *
+    @PutMapping("post")
     public void updatePost(Post post){
         postService.updatePost(post);
     }
 
-
-
-
-
+    /**
+     * Deletes a post based on its information.
+     * @param post The post object containing information about the post to be deleted.
+     *
+    @DeleteMapping("post")
+    public void deletePost(Post post){
+        postService.deletePost(post);
+    }
+    */
 }

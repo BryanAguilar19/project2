@@ -16,9 +16,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import com.example.demo.entity.Account;
 import com.example.demo.entity.Post;
-import com.example.demo.entity.Comment;
 
 @Entity(name = "post")
 @Data
