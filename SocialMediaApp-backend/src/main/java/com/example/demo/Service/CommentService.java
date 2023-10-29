@@ -134,9 +134,10 @@ public class CommentService {
      * @param comment The comment to be deleted.
      */
     public void deleteComment(long postId, Comment commentToDelete, String accountName, String password) {
+        Optional<Post> post = this.postRepository.findById(postId);
         Optional<Comment> comment = this.commentRepository.findById(commentToDelete.getCommentId());
 
-        if(!comment.isPresent()) {
+        if(!post.isPresent() || !comment.isPresent() || !post.get().getComments().contains(comment.get())) {
             return;
         }
 
@@ -150,10 +151,11 @@ public class CommentService {
             return;
         }
 
-        if(commentToDelete.getAccount() != account.get() && account.get().getRole() != Role.ADMIN) {
+        if(comment.get().getAccount() != account.get() && account.get().getRole() != Role.ADMIN) {
             return;
         }
 
+        post.get().getComments().remove(comment.get());
         this.commentRepository.delete(comment.get());
     }
 }
