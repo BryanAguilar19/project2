@@ -53,3 +53,18 @@ export async function putRoleAPI(id:number, role:string, account:Account) {
         }
     )
 }
+
+export async function getAllAccountsAPI() {
+    return await fetch (
+        "http://localhost:8080/account/{id}/",
+        {
+            mode: "cors",
+            method: "GET",
+            headers: {
+                "access-control-allow-origin": "*",
+                "access-control-allow-headers": "GET, POST, OPTIONS",
+                "content-type": "application/json"
+            }
+        }
+    )
+}

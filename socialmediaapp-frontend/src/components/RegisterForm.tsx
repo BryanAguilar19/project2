@@ -3,6 +3,7 @@ import { APIRegisterCall } from "../service/AccountService";
 import { Account } from "../models/Account";
 import { Role } from "../models/Role";
 import { useNavigate } from "react-router-dom";
+import './css/Register.css'
 
 export function RegisterForm() {
     const navigate = useNavigate();
@@ -59,7 +60,8 @@ export function RegisterForm() {
 
     return (
         <>
-            <div>
+            <div className="registerContainer">
+                <h1>----- REGISTRATION -----</h1>
                 <label>Account Name:</label>
                 <input name = "accountName" value = {accountName} onChange = {updateInput}></input>
                  

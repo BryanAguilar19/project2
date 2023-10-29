@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.example.demo.entity.Account;
 import com.example.demo.entity.Comment;
 import com.example.demo.entity.Post;
+import com.example.demo.entity.Role;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.PostRepository;
 
@@ -77,21 +78,41 @@ public class PostService {
      * Updates a post that is currently in the database.
      * 
      * @param updatedPost The updated post.
+     * @param accountName The accountName that is initiating the request.
+     * @param password The password of that account.
      * @return The post that was updated. Returns null if no such post with
      * the given id exists in the database.
      */
-    public Post updatePost(Post updatedPost) {
-        long postId = updatedPost.getPostId();
-        Optional<Post> post = this.postRepository.findById(postId);
+    public Post updatePost(Post updatedPost, String accountName, String password) {
+        Optional<Post> post = this.postRepository.findById(updatedPost.getPostId());
 
         if(!post.isPresent()) {
             return null;
         }
 
+        Optional<Account> account = this.accountRepository.findAccountByAccountName(accountName);
+
+        if(!account.isPresent()) {
+            return null;
+        }
+
+        if(!account.get().getPassword().equals(password)) {
+            return null;
+        }
+
         Post postToUpdate = post.get();
-        postToUpdate.setImageUrl(updatedPost.getImageUrl());
-        postToUpdate.setDescription(updatedPost.getDescription());
-        postToUpdate.setNumberOfLikes(updatedPost.getNumberOfLikes());
+
+        if(postToUpdate.getAccount() != account.get() && account.get().getRole() != Role.ADMIN) {
+            return null;
+        }
+
+        if(updatedPost.getImageUrl() != null) {
+            postToUpdate.setImageUrl(updatedPost.getImageUrl());
+        }
+
+        if(updatedPost.getDescription() != null) {
+            postToUpdate.setDescription(updatedPost.getDescription());
+        }
 
         return this.postRepository.save(postToUpdate);
     }
@@ -99,9 +120,31 @@ public class PostService {
     /**
      * Deletes a post from the database.
      * 
-     * @param post The post to be deleted.
+     * @param postToDelete The post to be deleted.
+     * @param accountName The accountName that is initiating the request.
+     * @param password The password of that account.
      */
-    public void deletePost(Post post) {
-        this.postRepository.delete(post);
+    public void deletePost(Post postToDelete, String accountName, String password) {
+        Optional<Post> post = this.postRepository.findById(postToDelete.getPostId());
+
+        if(!post.isPresent()) {
+            return;
+        }
+
+        Optional<Account> account = this.accountRepository.findAccountByAccountName(accountName);
+
+        if(!account.isPresent()) {
+            return;
+        }
+
+        if(!account.get().getPassword().equals(password)) {
+            return;
+        }
+
+        if(post.get().getAccount() != account.get() && account.get().getRole() != Role.ADMIN) {
+            return;
+        }
+
+        this.postRepository.delete(post.get());
     }
 }

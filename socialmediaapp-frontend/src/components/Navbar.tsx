@@ -21,6 +21,7 @@ export function Navbar(props:props) {
     return (
         <>
         <p>CURRENT USER: Username = {accountContext.account.accountName}; Role = {accountContext.account.role}</p>
+        <div className="Navbar">
             <Link to = "/">Home</Link>
             <span> | </span>
             <Link to = "/login">Login</Link>
@@ -52,6 +53,7 @@ export function Navbar(props:props) {
                 
             }
             
+        </div>
         </>
     )
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Account } from "../models/Account";
+import { getAllAccountsAPI } from "../service/AccountService";
 import { AdminUserAccountCard } from "./AdminUserAccountCard";
 
 export function AdminUserAccountsList(){
