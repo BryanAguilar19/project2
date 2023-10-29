@@ -100,4 +100,8 @@ public class PostController {
     public void deletePost(@RequestBody Post post, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
         this.postService.deletePost(post, accountName, password);
     }
+    @PutMapping("/post/{postId}/{numberOfLikes}")
+    public void updatePostLikes(@PathVariable("postId") long postId, @PathVariable("numberOfLikes") int numberOfLikes){
+        this.postService.updatePostLikes(postId, numberOfLikes);
+    }
 }

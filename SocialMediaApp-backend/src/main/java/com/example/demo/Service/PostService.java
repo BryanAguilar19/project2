@@ -150,4 +150,12 @@ public class PostService {
 
         this.postRepository.delete(post.get());
     }
+
+    public void updatePostLikes(long id, int likes){
+        Optional<Post> post = this.postRepository.findById(id);
+
+        Post postUpdateLikes = post.get();
+        postUpdateLikes.setNumberOfLikes(postUpdateLikes.getNumberOfLikes()+likes);
+
+    }
 }
