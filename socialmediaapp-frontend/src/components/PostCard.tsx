@@ -8,6 +8,7 @@ import { CommentCard } from "./CommentCard";
 
 interface propsInterface{
     post:Post
+    refreshPostData: () => void
 }
 
 export function PostCard(props:propsInterface){
@@ -36,44 +37,34 @@ export function PostCard(props:propsInterface){
      * Likes button click function
      */
     function likePost(){       
-                
-        // setLikes(likes + 1);        probably wrong logic
-
-        // TODO: create call to backend to update likes
-        // let post:Post = {
-        //     likes: postLikesInput,
-        //     id: props.post.id,
-        //     account: accountContext.account,
-        //     imageUrl: postImageUrl,
-        //     description: postDescription,
-        //     comments: postComments
-        // }
-
+        
         if(props.post.postId !== undefined){
-            putLikePostAPI(props.post.postId, 1);
-        }        
+            putLikePostAPI(props.post.postId, 1)
+            .then(response => {
+                props.refreshPostData();
+            })
+        }
+        
+        // *** no logic to check if post was already liked ***
+        setPostLikesInput(props.post.numberOfLikes);
+
         console.log("Like posted.")
         setIsClicked(!isClicked);
     }
     function unlikePost(){        
-                
-        // setLikes(likes + 1);        probably wrong logic
 
-        // TODO: create call to backend to update likes
-        // let post:Post = {
-        //     likes: postLikesInput,
-        //     id: props.post.id,
-        //     account: accountContext.account,
-        //     imageUrl: postImageUrl,
-        //     description: postDescription,
-        //     comments: postComments
-        // }
         if(props.post.postId !== undefined){
-            putLikePostAPI(props.post.postId, -1);
-        }            
+            putLikePostAPI(props.post.postId, -1)
+            .then(response => {
+                props.refreshPostData();
+        })
+
+        // *** no logic to check if post was already liked ***
+        setPostLikesInput(props.post.numberOfLikes)
     
         console.log("Unlike posted.");
         setIsClicked(!isClicked);
+        }
     }
     
 
@@ -115,7 +106,7 @@ export function PostCard(props:propsInterface){
                         :
                         (<button onClick={likePost}>Like</button>)                        
                     }                        
-                        {postLikesInput}                        
+                        {props.post.numberOfLikes}                        
                         
                 
             Post ID: {props.post.postId}

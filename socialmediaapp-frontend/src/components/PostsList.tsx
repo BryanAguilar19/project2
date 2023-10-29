@@ -6,7 +6,7 @@ import { getAllPostsAPI } from "../service/PostService";
 export function PostsList(){
     const [allPosts, setAllPosts] = useState<Post[]>([])
 
-    useEffect(() => {
+    function refreshPostData(){
         getAllPostsAPI()
             .then(response => {
                 return response.json()
@@ -14,11 +14,16 @@ export function PostsList(){
             .then(json => {
                 setAllPosts(json)
             });
+
+    }
+
+    useEffect(() => {
+        refreshPostData();
     }, []);
 
     return (
         <>
-            {allPosts.map(post => <PostCard post={post} key={post.postId}></PostCard>)}
+            {allPosts.map(post => <PostCard refreshPostData={refreshPostData} post={post} key={post.postId}></PostCard>)}
         </>
     )
 }
