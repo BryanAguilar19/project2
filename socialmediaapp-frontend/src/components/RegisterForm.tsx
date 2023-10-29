@@ -47,7 +47,8 @@ export function RegisterForm() {
             lastName: lastName,
             email: email,
             phoneNumber: phoneNumber,
-            role: Role.PERSONAL
+            role: Role.PERSONAL,
+            isDisabled: false
         }
 
         APIRegisterCall(account)

@@ -22,7 +22,8 @@ export const AccountContext = createContext(
       lastName: "",
       email: "",
       phoneNumber: "",
-      role: Role.PERSONAL
+      role: Role.PERSONAL,
+      isDisabled: false
     }, setAccount: (account : Account) => {}
   }
 );
@@ -36,7 +37,8 @@ function App() {
     lastName: "",
     email: "",
     phoneNumber: "",
-    role: Role.PERSONAL
+    role: Role.PERSONAL,
+    isDisabled: false
   });
   let context = {account, setAccount};
 
