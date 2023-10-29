@@ -103,8 +103,8 @@ public class AccountService {
      * @param password
      * @return
      */
-    public Account updateAccount(Account updatedAccount, String accountName, String password) {
-        Optional<Account> account = this.accountRepository.findById(updatedAccount.getAccountId());
+    public Account updateAccount(long id, Account updatedAccount, String accountName, String password) {
+        Optional<Account> account = this.accountRepository.findById(id);
 
         if(!account.isPresent()) {
             return null;

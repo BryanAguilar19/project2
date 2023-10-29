@@ -26,7 +26,7 @@ public class AccountController {
      * 
      * @return A list of the accounts.
      */
-    @GetMapping("account")
+    @GetMapping("/account")
     public List<Account> getAccounts() {
         return accountService.getAllAccounts();
     }
@@ -94,9 +94,9 @@ public class AccountController {
      * @param password
      * @return
      */
-    @PutMapping("/account")
-    public Account updateAccount(@RequestBody Account account, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
-        return this.accountService.updateAccount(account, accountName, password);
+    @PutMapping("/account/{id}")
+    public Account updateAccount(@PathVariable("id") long id, @RequestBody Account account, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
+        return this.accountService.updateAccount(id, account, accountName, password);
     }
 
     @PutMapping("/account/{id}/disable")
