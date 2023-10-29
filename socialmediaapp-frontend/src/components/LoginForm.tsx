@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { APILoginCall } from "../service/AccountService";
 import { Account } from "../models/Account";
 import { AccountContext } from "../App";
+import './css/Login.css'
 
 export function LoginForm() {
     const accountContext = useContext(AccountContext);
@@ -43,7 +44,8 @@ export function LoginForm() {
 
     return (
         <>
-            <div>
+            <div className="loginContainer">
+                <h1>----- LOGIN -----</h1>
                 <label>Account Name:</label>
                 <input name = "accountName" value = {accountName} onChange = {updateInput}></input>
                  
