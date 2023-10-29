@@ -1,20 +1,40 @@
 import { Link } from "react-router-dom";
 import { AccountContext } from "../App";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Account } from "../models/Account";
+import { Role } from "../models/Role";
 
-export function Navbar() {
+interface props{
+    account:Account
+    role:Role
+}
+
+export function Navbar(props:props) {
     const accountContext = useContext(AccountContext);
 
-    return (
-        <>
-        <p>CURRENT USER: Username = {accountContext.account.accountName}; Role = {accountContext.account.role}</p>
-        <div className="Navbar">
-            <Link to = "/">Home</Link>
-            <Link to = "/login">Login</Link>
-            <Link to = "/register">Register</Link>
-            <Link to = "/post">Post</Link>
-            <Link to = "/allPosts">AllPosts</Link>
-        </div>
-        </>
+    const [isAdmin, setIsAdmin] = useState(false);
+    
+    if(accountContext.account.role === Role.ADMIN){
+        setIsAdmin(true);
+    }    
+
+    return (        
+            <>        
+                <p>CURRENT USER: Username = {accountContext.account.accountName}; Role = {accountContext.account.role}</p>
+                <div className="Navbar">
+                    <Link to = "/">Home</Link>
+                    <span> | </span>
+                    <Link to = "/login">Login</Link>
+                    <span> | </span>
+                    <Link to = "/register">Register</Link>
+                    <span> | </span>
+                    <Link to = "/post">Post</Link>
+                    <span> | </span>
+                    <Link to = "/allPosts">AllPosts</Link>    
+                </div>
+            </>
     )
+    
+    
 }
+

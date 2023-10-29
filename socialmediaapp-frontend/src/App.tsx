@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -9,6 +9,9 @@ import { CreatePostPage } from './pages/CreatePostPage';
 import { PostsPage } from './pages/PostsPage';
 import { Account } from './models/Account';
 import { Role } from './models/Role';
+import { AdminPage } from './pages/AdminPage';
+import { AdminUserAccountCard } from './components/AdminUserAccountCard';
+import { AdminUserAccountsList } from './components/AdminUserAccountsList';
 
 export const AccountContext = createContext(
   {
@@ -19,7 +22,8 @@ export const AccountContext = createContext(
       lastName: "",
       email: "",
       phoneNumber: "",
-      role: Role.PERSONAL
+      role: Role.PERSONAL,
+      isDisabled: false
     }, setAccount: (account : Account) => {}
   }
 );
@@ -33,7 +37,8 @@ function App() {
     lastName: "",
     email: "",
     phoneNumber: "",
-    role: Role.PERSONAL
+    role: Role.PERSONAL,
+    isDisabled: false
   });
   let context = {account, setAccount};
 
@@ -41,13 +46,14 @@ function App() {
     <div className="App">
       <AccountContext.Provider value = {context}>
         <BrowserRouter>
-          <Navbar></Navbar>
+          <Navbar account={context.account} role={context.account.role}></Navbar>
           <Routes>
             <Route path = "/" element = {<></>}></Route>
             <Route path = "/login" element = {<LoginForm></LoginForm>}></Route>
             <Route path = "/register" element = {<RegisterForm></RegisterForm>}></Route>
             <Route path = "/post" element = {<CreatePostPage></CreatePostPage>}></Route>
             <Route path = "/allPosts" element = {<PostsPage></PostsPage>}></Route>            
+            <Route path = "/admin/adminPage" element = {<AdminPage></AdminPage>}></Route>
           </Routes>
         </BrowserRouter>
       </AccountContext.Provider>

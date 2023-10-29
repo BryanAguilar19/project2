@@ -18,11 +18,11 @@ export function PostCard(props:propsInterface){
 
     const [commentInput, setCommentInput] = useState("");
 
-    const [postId, setPostIdInput] = useState("");
-    const [postAccount, setPostAccountInput] = useState("");
-    const [postImageUrl, setPostImageUrlInput] = useState("");
-    const [postDescription, setPostDescriptionInput] = useState("");
-    const [postComments, setPostCommentsInput] = useState([]);
+    // const [postId, setPostIdInput] = useState("");
+    // const [postAccount, setPostAccountInput] = useState("");
+    // const [postImageUrl, setPostImageUrlInput] = useState("");
+    // const [postDescription, setPostDescriptionInput] = useState("");
+    // const [postComments, setPostCommentsInput] = useState([]);
 
     const [isClicked, setIsClicked] = useState(false);
 
@@ -44,7 +44,7 @@ export function PostCard(props:propsInterface){
                 props.refreshPostData();
             })
         }
-        
+
         // *** no logic to check if post was already liked ***
         setPostLikesInput(props.post.numberOfLikes);
 
@@ -72,7 +72,6 @@ export function PostCard(props:propsInterface){
      * Adds new comment to current post
      */
     function addComment(){
-        // TODO: create call to backend to add comment
         const newComment:Comment = {
             
             account: accountContext.account,
@@ -82,10 +81,13 @@ export function PostCard(props:propsInterface){
         
         if(props.post.postId !== undefined){        
             postCommentAPI(props.post.postId, newComment)
-            .catch(res => console.log(res))
-        }
+            .then(response => {
+                props.refreshPostData();
+         
+        })
         console.log("Comment posted.")
 
+        }
     }
     
      

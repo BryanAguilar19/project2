@@ -9,4 +9,5 @@ export interface Account {
     email: string,
     phoneNumber: string,
     role: Role
+    isDisabled: boolean
 }
