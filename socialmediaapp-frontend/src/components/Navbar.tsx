@@ -8,11 +8,13 @@ export function Navbar() {
     return (
         <>
         <p>CURRENT USER: Username = {accountContext.account.accountName}; Role = {accountContext.account.role}</p>
+        <div className="Navbar">
             <Link to = "/">Home</Link>
             <Link to = "/login">Login</Link>
             <Link to = "/register">Register</Link>
             <Link to = "/post">Post</Link>
             <Link to = "/allPosts">AllPosts</Link>
+        </div>
         </>
     )
 }
