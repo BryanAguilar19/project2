@@ -1,7 +1,30 @@
+import { useState } from "react";
+import { AccountContext } from "../App";
+import { AdminUserView } from "../components/AdminUserView";
+import { PostCard } from "../components/PostCard";
+import { Account } from "../models/Account";
+
 export function AdminPage(){
+
+    const [allAccounts, setAllAccounts] = useState<Account[]>([])
     
     
-    /**
+    return (
+        <>
+        <h1>Admin Page</h1>
+        <div>
+            <h3>Admin User View</h3>
+        {/* <AdminUserView/> */}
+        {/* {allPosts.map(post => <PostCard refreshPostData={refreshPostData} post={post} key={post.postId}></PostCard>)} */}
+        {allAccounts.map(account => <AdminUserAccountsCard account={account} key={account}></AdminUserAccountsCard>)}
+        
+        </div>
+        </>
+
+    )
+}
+
+/**
      * admin:
      * - view reports?
      * 
@@ -28,14 +51,3 @@ export function AdminPage(){
      * 
      * 
      */
-    
-    
-    
-    return (
-        <>
-        <h1>Admin Page</h1>
-        
-        </>
-
-    )
-}

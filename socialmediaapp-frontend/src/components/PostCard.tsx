@@ -18,11 +18,11 @@ export function PostCard(props:propsInterface){
 
     const [commentInput, setCommentInput] = useState("");
 
-    const [postId, setPostIdInput] = useState("");
-    const [postAccount, setPostAccountInput] = useState("");
-    const [postImageUrl, setPostImageUrlInput] = useState("");
-    const [postDescription, setPostDescriptionInput] = useState("");
-    const [postComments, setPostCommentsInput] = useState([]);
+    // const [postId, setPostIdInput] = useState("");
+    // const [postAccount, setPostAccountInput] = useState("");
+    // const [postImageUrl, setPostImageUrlInput] = useState("");
+    // const [postDescription, setPostDescriptionInput] = useState("");
+    // const [postComments, setPostCommentsInput] = useState([]);
 
     const [isClicked, setIsClicked] = useState(false);
 
