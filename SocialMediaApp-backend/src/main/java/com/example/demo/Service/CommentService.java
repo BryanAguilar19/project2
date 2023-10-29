@@ -3,17 +3,21 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.entity.Account;
 import com.example.demo.entity.Comment;
 import com.example.demo.entity.Post;
+import com.example.demo.entity.Role;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.CommentRepository;
 import com.example.demo.repository.PostRepository;
 
 @Component
+@Transactional
 public class CommentService {
     private CommentRepository commentRepository;
     private PostRepository postRepository;
@@ -94,16 +98,32 @@ public class CommentService {
      * @return The comment that was updated. Returns null if no such comment
      * with the given id exists in the database.
      */
-    public Comment updateComment(Comment updatedComment) {
-        long commentId = updatedComment.getCommentId();
-        Optional<Comment> comment = this.commentRepository.findById(commentId);
+    public Comment updateComment(long postId, Comment updatedComment, String accountName, String password) {
+        Optional<Comment> comment = this.commentRepository.findById(updatedComment.getCommentId());
 
         if(!comment.isPresent()) {
             return null;
         }
 
+        Optional<Account> account = this.accountRepository.findAccountByAccountName(accountName);
+
+        if(!account.isPresent()) {
+            return null;
+        }
+
+        if(!account.get().getPassword().equals(password)) {
+            return null;
+        }
+
         Comment commentToUpdate = comment.get();
-        commentToUpdate.setComment(updatedComment.getComment());
+
+        if(commentToUpdate.getAccount() != account.get() && account.get().getRole() != Role.ADMIN) {
+            return null;
+        }
+
+        if(updatedComment.getComment() != null) {
+            commentToUpdate.setComment(updatedComment.getComment());
+        }
 
         return this.commentRepository.save(commentToUpdate);
     }
@@ -113,7 +133,27 @@ public class CommentService {
      * 
      * @param comment The comment to be deleted.
      */
-    public void deleteComment(Comment comment) {
-        this.commentRepository.delete(comment);
+    public void deleteComment(long postId, Comment commentToDelete, String accountName, String password) {
+        Optional<Comment> comment = this.commentRepository.findById(commentToDelete.getCommentId());
+
+        if(!comment.isPresent()) {
+            return;
+        }
+
+        Optional<Account> account = this.accountRepository.findAccountByAccountName(accountName);
+
+        if(!account.isPresent()) {
+            return;
+        }
+
+        if(!account.get().getPassword().equals(password)) {
+            return;
+        }
+
+        if(commentToDelete.getAccount() != account.get() && account.get().getRole() != Role.ADMIN) {
+            return;
+        }
+
+        this.commentRepository.delete(comment.get());
     }
 }
