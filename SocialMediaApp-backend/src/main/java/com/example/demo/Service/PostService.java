@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,7 @@ import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.PostRepository;
 
 @Component
+@Transactional
 public class PostService {
     PostRepository postRepository;
     AccountRepository accountRepository;

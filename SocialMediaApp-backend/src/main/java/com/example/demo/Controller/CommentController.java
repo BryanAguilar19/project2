@@ -40,7 +40,7 @@ public class CommentController {
      * @return The list of comments by that account.
      */
     @GetMapping("account/{id}/comment")
-    public List<Comment> getAllCommentsByAccount(@PathVariable long id){
+    public List<Comment> getAllCommentsByAccount(@PathVariable long id) {
         return this.commentService.getAllCommentsByAccountId(id);
     }
 
@@ -72,7 +72,7 @@ public class CommentController {
      * @return The comment that was posted.
      */
     @PostMapping("post/{id}/comment")
-    public Comment addComment(@PathVariable long id, @RequestBody Comment comment){
+    public Comment addComment(@PathVariable long id, @RequestBody Comment comment) {
         return this.commentService.addComment(comment, id);
     }
 
@@ -81,12 +81,16 @@ public class CommentController {
      * 
      * @param id The id of the post.
      * @param comment The updated comment.
+     * @param accountName The accountName that is initiating the request.
+     * @param password The password of that account.
      * @return The updated comment.
      *
-    
+     */
     @PutMapping("post/{id}/comment")
-    public Comment updateComment(@PathVariable long id, @RequestBody Comment comment){
-        return commentService.updateComment(comment);
+    public Comment updateComment(@PathVariable long id, @RequestBody Comment comment, 
+      @RequestHeader("account-name") String accountName, 
+      @RequestHeader("password") String password) {
+        return this.commentService.updateComment(id, comment, accountName, password);
     }
 
     /**
@@ -94,11 +98,13 @@ public class CommentController {
      * 
      * @param id The id of the post.
      * @param comment The comment to be deleted.
-     *
+     * @param accountName The accountName that is initiating the request.
+     * @param password The password of that account.
+     */
     @DeleteMapping("post/{id}/comment")
-    public void deleteComment(@PathVariable long id, @RequestBody Comment comment){
-        this.commentService.deleteComment(comment);
-
+    public void deleteComment(@PathVariable long id, @RequestBody Comment comment,
+      @RequestHeader("account-name") String accountName, 
+      @RequestHeader("password") String password) {
+        this.commentService.deleteComment(id, comment, accountName, password);
     }
-    */
 }

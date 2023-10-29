@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 @Component
+@Transactional
 public class AccountService {
     //'AccountRepository' object
     private AccountRepository accountRepository;
