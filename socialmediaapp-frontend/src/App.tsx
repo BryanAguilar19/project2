@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -41,7 +41,7 @@ function App() {
     <div className="App">
       <AccountContext.Provider value = {context}>
         <BrowserRouter>
-          <Navbar></Navbar>
+          <Navbar account={context.account} role={context.account.role}></Navbar>
           <Routes>
             <Route path = "/" element = {<></>}></Route>
             <Route path = "/login" element = {<LoginForm></LoginForm>}></Route>
