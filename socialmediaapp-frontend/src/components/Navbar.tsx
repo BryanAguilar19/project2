@@ -18,43 +18,23 @@ export function Navbar(props:props) {
         setIsAdmin(true);
     }    
 
-    return (
-        <>
-        <p>CURRENT USER: Username = {accountContext.account.accountName}; Role = {accountContext.account.role}</p>
-        <div className="Navbar">
-            <Link to = "/">Home</Link>
-            <span> | </span>
-            <Link to = "/login">Login</Link>
-            <span> | </span>
-            <Link to = "/register">Register</Link>
-            <span> | </span>
-            <Link to = "/post">Post</Link>
-            <span> | </span>
-            <Link to = "/allPosts">AllPosts</Link>
-            
-            {
-            isAdmin ?
-                (
-                    <>
-                    <br/>
-                    <Link to = "/admin/adminPage">Admin</Link>
+    return (        
+            <>        
+                <p>CURRENT USER: Username = {accountContext.account.accountName}; Role = {accountContext.account.role}</p>
+                <div className="Navbar">
+                    <Link to = "/">Home</Link>
                     <span> | </span>
-                    <Link to = "/admin/AllUsers">Users</Link>
+                    <Link to = "/login">Login</Link>
                     <span> | </span>
-                    <Link to = "/admin/AllPosts">Posts</Link>
+                    <Link to = "/register">Register</Link>
                     <span> | </span>
-                    <Link to = "/admin/AllRequests">Requests</Link>
-                    </>
-                )
-                :
-                (
-                    <></>
-                )
-                
-            }
-            
-        </div>
-        </>
+                    <Link to = "/post">Post</Link>
+                    <span> | </span>
+                    <Link to = "/allPosts">AllPosts</Link>    
+                </div>
+            </>
     )
+    
+    
 }
 

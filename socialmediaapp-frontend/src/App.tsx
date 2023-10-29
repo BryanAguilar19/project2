@@ -9,6 +9,9 @@ import { CreatePostPage } from './pages/CreatePostPage';
 import { PostsPage } from './pages/PostsPage';
 import { Account } from './models/Account';
 import { Role } from './models/Role';
+import { AdminPage } from './pages/AdminPage';
+import { AdminUserAccountCard } from './components/AdminUserAccountCard';
+import { AdminUserAccountsList } from './components/AdminUserAccountsList';
 
 export const AccountContext = createContext(
   {
@@ -48,6 +51,7 @@ function App() {
             <Route path = "/register" element = {<RegisterForm></RegisterForm>}></Route>
             <Route path = "/post" element = {<CreatePostPage></CreatePostPage>}></Route>
             <Route path = "/allPosts" element = {<PostsPage></PostsPage>}></Route>            
+            <Route path = "/admin/adminPage" element = {<AdminPage></AdminPage>}></Route>
           </Routes>
         </BrowserRouter>
       </AccountContext.Provider>

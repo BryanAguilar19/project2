@@ -54,9 +54,13 @@ export async function putRoleAPI(id:number, role:string, account:Account) {
     )
 }
 
+/**
+ * Admin functionality to view all accounts in AdminUserAccountsList.tsx
+ * @returns 
+ */
 export async function getAllAccountsAPI() {
     return await fetch (
-        "http://localhost:8080/account/{id}/",
+        "http://localhost:8080/account",
         {
             mode: "cors",
             method: "GET",

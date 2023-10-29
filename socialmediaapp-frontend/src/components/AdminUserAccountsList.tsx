@@ -23,7 +23,9 @@ export function AdminUserAccountsList(){
 
     return (
         <>
+        <h4>All Accounts</h4>
             {allAccounts.map(account => <AdminUserAccountCard account={account} key={account.accountId}></AdminUserAccountCard>)}
+            
         </>
     )
 }
