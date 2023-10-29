@@ -48,11 +48,11 @@ public class Account {
     @Column
     private boolean isDisabled; //object boolean 'isDisabled' true/false
 
-    @OneToMany  //one-to-many relationship with the 'Post' entity.
+    @OneToMany(cascade = CascadeType.ALL)  //one-to-many relationship with the 'Post' entity.
     @JsonIgnore //commands JSON serialization to ignore the field when converting to JSON
     private List<Post> posts;
 
-    @OneToMany  //one-to-many relationship with the 'Comment' entity.
+    @OneToMany(cascade = CascadeType.ALL)  //one-to-many relationship with the 'Comment' entity.
     @JsonIgnore //commands JSON serialization to ignore the field when converting to JSON
     private List<Comment> comments;
 }

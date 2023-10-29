@@ -86,4 +86,26 @@ public class AccountController {
 
         return new ResponseEntity<Account>(account, status);
     }
+
+    /**
+     * 
+     * @param account
+     * @param accountName
+     * @param password
+     * @return
+     */
+    @PutMapping("/account")
+    public Account updateAccount(@RequestBody Account account, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
+        return this.accountService.updateAccount(account, accountName, password);
+    }
+
+    @PutMapping("/account/{id}/disable")
+    public Account disableAccount(@PathVariable("id") long id, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
+        return this.accountService.toggleAccountVisibility(id, accountName, password);
+    }
+
+    @DeleteMapping("/account/{id}")
+    public void deleteAccount(@PathVariable("id") long id, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
+        this.accountService.deleteAccount(id, accountName, password);
+    }
 }

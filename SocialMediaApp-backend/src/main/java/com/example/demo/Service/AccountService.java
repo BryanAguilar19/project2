@@ -1,8 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Account;
+import com.example.demo.entity.Comment;
+import com.example.demo.entity.Post;
 import com.example.demo.entity.Role;
 import com.example.demo.repository.AccountRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +19,14 @@ import javax.transaction.Transactional;
 public class AccountService {
     //'AccountRepository' object
     private AccountRepository accountRepository;
+    private CommentService commentService;
+    private PostService postService;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository){
+    public AccountService(AccountRepository accountRepository, CommentService commentService, PostService postService){
         this.accountRepository = accountRepository;
+        this.commentService = commentService;
+        this.postService = postService;
     }
 
     public Account login(Account submittedAccount) {
@@ -53,8 +60,14 @@ public class AccountService {
      * 
      * @return
      */
-    public Account getAccountByAccountName() {
-        return null;
+    public Account getAccountByAccountName(String accountName) {
+        Optional<Account> account = this.accountRepository.findAccountByAccountName(accountName);
+
+        if(!account.isPresent()) {
+            return null;
+        }
+
+        return account.get();
     }
 
     /**
@@ -85,29 +98,122 @@ public class AccountService {
 
     /**
      * 
-     * @param account
+     * @param updatedAccount
+     * @param accountName
+     * @param password
      * @return
      */
-    public Account updateAccount(Account account) {
-        return null;
-    } 
-
-    /**
-     * 
-     * @param account
-     * @return
-     */
-    public Account deleteAccount(Account account) {
-        return null;
-    }
-
-    private Account getAccountByAccountName(String accountName) {
-        Optional<Account> account = this.accountRepository.findAccountByAccountName(accountName);
+    public Account updateAccount(Account updatedAccount, String accountName, String password) {
+        Optional<Account> account = this.accountRepository.findById(updatedAccount.getAccountId());
 
         if(!account.isPresent()) {
             return null;
         }
 
-        return account.get();
+        Optional<Account> accountMakingRequest = this.accountRepository.findAccountByAccountName(accountName);
+
+        if(!accountMakingRequest.isPresent()) {
+            return null;
+        }
+
+        if(!accountMakingRequest.get().getPassword().equals(password) || accountMakingRequest.get().getRole() != Role.ADMIN) {
+            return null;
+        }
+
+        Account accountToUpdate = account.get();
+
+        if(updatedAccount.getAccountName() != null) {
+            accountToUpdate.setAccountName(updatedAccount.getAccountName());
+        }
+
+        if(updatedAccount.getEmail() != null) {
+            accountToUpdate.setEmail(updatedAccount.getEmail());
+        }
+
+        if(updatedAccount.getFirstName() != null) {
+            accountToUpdate.setFirstName(updatedAccount.getFirstName());
+        }
+
+        if(updatedAccount.getLastName() != null) {
+            accountToUpdate.setLastName(updatedAccount.getLastName());
+        }
+
+        if(updatedAccount.getPhoneNumber() != null) {
+            accountToUpdate.setPhoneNumber(updatedAccount.getPhoneNumber());
+        }
+
+        if(updatedAccount.getRole() != null) {
+            accountToUpdate.setRole(updatedAccount.getRole());
+        }
+
+        return this.accountRepository.save(accountToUpdate);
+    } 
+
+    /**
+     * 
+     * @param id
+     * @param accountName
+     * @param password
+     * @return
+     */
+    public Account toggleAccountVisibility(long id, String accountName, String password) {
+        Optional<Account> account = this.accountRepository.findById(id);
+
+        if(!account.isPresent()) {
+            return null;
+        }
+
+        Optional<Account> accountMakingRequest = this.accountRepository.findAccountByAccountName(accountName);
+
+        if(!accountMakingRequest.isPresent()) {
+            return null;
+        }
+
+        if(!accountMakingRequest.get().getPassword().equals(password) || accountMakingRequest.get().getRole() != Role.ADMIN) {
+            return null;
+        }
+
+        Account accountToUpdate = account.get();
+        accountToUpdate.setDisabled(!accountToUpdate.isDisabled());
+
+        return this.accountRepository.save(accountToUpdate);
+    }
+
+    /**
+     * 
+     * @param id
+     * @param accountName
+     * @param password
+     */
+    public void deleteAccount(long id, String accountName, String password) {
+        Optional<Account> account = this.accountRepository.findById(id);
+
+        if(!account.isPresent()) {
+            return;
+        }
+
+        Optional<Account> accountMakingRequest = this.accountRepository.findAccountByAccountName(accountName);
+
+        if(!accountMakingRequest.isPresent()) {
+            return;
+        }
+
+        if(!accountMakingRequest.get().getPassword().equals(password) || accountMakingRequest.get().getRole() != Role.ADMIN) {
+            return;
+        }
+
+        List<Comment> comments = this.commentService.getAllCommentsByAccountId(id);
+
+        for(Comment comment : comments) {
+            this.commentService.deleteComment(comment.getPost().getPostId(), comment, accountName, password);
+        }
+
+        List<Post> posts = this.postService.getAllPostsByAccountId(id);
+
+        for(Post post : posts) {
+            this.postService.deletePost(post, accountName, password);
+        }
+        
+        this.accountRepository.delete(account.get());
     }
 }
