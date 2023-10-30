@@ -185,21 +185,21 @@ public class AccountService {
      * @param accountName
      * @param password
      */
-    public void deleteAccount(long id, String accountName, String password) {
+    public boolean deleteAccount(long id, String accountName, String password) {
         Optional<Account> account = this.accountRepository.findById(id);
 
         if(!account.isPresent()) {
-            return;
+            return false;
         }
 
         Optional<Account> accountMakingRequest = this.accountRepository.findAccountByAccountName(accountName);
 
         if(!accountMakingRequest.isPresent()) {
-            return;
+            return false;
         }
 
         if(!accountMakingRequest.get().getPassword().equals(password) || accountMakingRequest.get().getRole() != Role.ADMIN) {
-            return;
+            return false;
         }
 
         List<Comment> comments = this.commentService.getAllCommentsByAccountId(id);
@@ -215,5 +215,6 @@ public class AccountService {
         }
         
         this.accountRepository.delete(account.get());
+        return true;
     }
 }
