@@ -23,7 +23,10 @@ export function AdminNavbar() {
                 <div className="AdminNavbar">
                     <Link to = "/admin/adminPage">Home</Link>
                     <span> | </span>
+                    <Link to = "/admin/accounts">Accounts List</Link>
+                    <span> | </span>
                     <Link to = "/admin/posts">Posts List</Link>
+                    
                     
                 </div>
             </>

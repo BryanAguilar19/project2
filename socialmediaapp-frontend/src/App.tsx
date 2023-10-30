@@ -59,6 +59,7 @@ function App() {
             <Route path = "/allPosts" element = {<PostsPage></PostsPage>}></Route>            
             <Route path = "/admin/adminPage" element = {<AdminPage></AdminPage>}></Route>
             <Route path = "/admin/posts" element = {<AdminPostsList></AdminPostsList>}></Route>
+            <Route path = "/admin/accounts" element = {<AdminUserAccountsList></AdminUserAccountsList>}></Route>
           </Routes>
         </BrowserRouter>
       </AccountContext.Provider>

@@ -1,4 +1,5 @@
 import { AdminNavbar } from "../components/AdminNavbar";
+import { AdminPostsList } from "../components/AdminPostsList";
 import { AdminUserAccountsList } from "../components/AdminUserAccountsList";
 
 
@@ -23,6 +24,7 @@ export function AdminPage(){
 
             <div>
             <h3>Admin Posts View</h3>
+                <AdminPostsList/>
             </div>
             <br/>
 

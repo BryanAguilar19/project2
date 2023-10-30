@@ -20,8 +20,11 @@ export function AdminUserAccountCard(props: props) {
      * @param event 
      */
     function updateNewPasswordInput(event:SyntheticEvent){
-        const inputPassword = (event.target as HTMLTextAreaElement).value
-        setPassword(inputPassword);
+        // let inputPassword = (event.target as HTMLTextAreaElement).value
+        let inputPassword = event.target as HTMLTextAreaElement;
+        setPassword(inputPassword.value);
+    }
+    function changePassword(){
         
         if(props.account.accountId !== undefined){
             
@@ -29,7 +32,7 @@ export function AdminUserAccountCard(props: props) {
             // .then(response => {
             //     props.refreshRoleData(); // refresh. do we even need?
             // })
-            console.log("Role set to: " + props.account.role)
+            // console.log("Password changed.")
         }
     }
 
@@ -64,7 +67,8 @@ export function AdminUserAccountCard(props: props) {
                     Password: {"**********"}
                     <br/>
                     <span> Change to: </span>
-                    <input type="text" value={password} onChange={updateNewPasswordInput}></input>                    
+                    <input type="text" value={password} onChange={updateNewPasswordInput}></input>
+                    <button onClick={updateNewPasswordInput}>Change</button>                    
                 </h6> 
                 
                 <h6>First Name: {props.account.firstName}</h6> 
@@ -79,12 +83,13 @@ export function AdminUserAccountCard(props: props) {
                     Role: {props.account.role}
                     <br/>
                     <span> Change to: </span>
-                    <select value={role} onChange={updateRoleInput}>
+                    <select value={role}>
                         <option value={Role.PERSONAL}>PERSONAL</option>
                         <option value={Role.CREATOR}>CREATOR</option>
                         <option value={Role.BUSINESS}>BUSINESS</option>
                         <option value={Role.ADMIN}>ADMIN</option>
-                    </select> 
+                    </select>
+                    <button onClick={updateRoleInput}>Change</button> 
                 </h6>
             </div>
             
