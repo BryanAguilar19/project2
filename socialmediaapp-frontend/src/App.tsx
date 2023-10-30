@@ -12,6 +12,8 @@ import { Role } from './models/Role';
 import { AdminPage } from './pages/AdminPage';
 import { AdminUserAccountCard } from './components/AdminUserAccountCard';
 import { AdminUserAccountsList } from './components/AdminUserAccountsList';
+import { AdminPostsList } from './components/AdminPostsList';
+import { AdminNavbar } from './components/AdminNavbar';
 
 export const AccountContext = createContext(
   {
@@ -47,6 +49,8 @@ function App() {
       <AccountContext.Provider value = {context}>
         <BrowserRouter>
           <Navbar account={context.account} role={context.account.role}></Navbar>
+          {/* {context.account.role === (Role.ADMIN)? (<><AdminNavbar/></>):(<></>)} */}
+          
           <Routes>
             <Route path = "/" element = {<></>}></Route>
             <Route path = "/login" element = {<LoginForm></LoginForm>}></Route>
@@ -54,6 +58,7 @@ function App() {
             <Route path = "/post" element = {<CreatePostPage></CreatePostPage>}></Route>
             <Route path = "/allPosts" element = {<PostsPage></PostsPage>}></Route>            
             <Route path = "/admin/adminPage" element = {<AdminPage></AdminPage>}></Route>
+            <Route path = "/admin/posts" element = {<AdminPostsList></AdminPostsList>}></Route>
           </Routes>
         </BrowserRouter>
       </AccountContext.Provider>

@@ -1,3 +1,4 @@
+import { AdminNavbar } from "../components/AdminNavbar";
 import { AdminUserAccountsList } from "../components/AdminUserAccountsList";
 
 
@@ -5,6 +6,7 @@ export function AdminPage(){
     
     return (
         <>
+            <AdminNavbar/>
             <h1>Admin Page</h1>
             <br/>
 
