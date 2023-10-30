@@ -42,12 +42,13 @@ export function CreatePostMenu() {
     return (
         <>
         <div className="postContainer">
-            <h1>Create a new post</h1>
+            <h1>New Post</h1>
+            <h4>Create a new post here!! :)</h4>
             
-            <label>Image URL:</label>
+            <label>Image URL:  </label>
             <input name = "imageUrl" value = {imageUrl} onChange = {updateImageUrl}></input>
             
-            <label>Description:</label>
+            <label>Description:  </label>
             <input name = "description" value = {description} onChange = {updateContentText}></input>
         
             <button onClick = {submitPost}>Submit</button>

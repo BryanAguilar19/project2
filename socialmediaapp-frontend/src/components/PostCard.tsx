@@ -94,11 +94,11 @@ export function PostCard(props:propsInterface){
 
     return (
         <>
-        <div>
+        <div className="postCardContainer">
             <img src={props.post.imageUrl}></img>
             <br/>
             {/* Probably will need to be displayed hidden or top 5-10 comments */}
-            {props.post.description}
+            <h3>{props.post.description}</h3>
 
             <h6>
                 {/* Conditional render like button */}
