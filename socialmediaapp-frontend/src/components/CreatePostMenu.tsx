@@ -2,6 +2,7 @@ import { SyntheticEvent, useContext, useState } from "react";
 import { AccountContext } from "../App";
 import { Post } from "../models/Post";
 import { postPostAPI } from "../service/PostService";
+import './css/Post.css'
 
 export function CreatePostMenu() {
     const accountContext = useContext(AccountContext);
@@ -40,6 +41,9 @@ export function CreatePostMenu() {
 
     return (
         <>
+        <div className="postContainer">
+            <h1>Create a new post</h1>
+            
             <label>Image URL:</label>
             <input name = "imageUrl" value = {imageUrl} onChange = {updateImageUrl}></input>
             
@@ -47,6 +51,7 @@ export function CreatePostMenu() {
             <input name = "description" value = {description} onChange = {updateContentText}></input>
         
             <button onClick = {submitPost}>Submit</button>
+        </div>
         </>
     )
 }
