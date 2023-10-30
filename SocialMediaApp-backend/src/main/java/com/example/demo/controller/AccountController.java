@@ -95,17 +95,37 @@ public class AccountController {
      * @return
      */
     @PutMapping("/account/{id}")
-    public Account updateAccount(@PathVariable("id") long id, @RequestBody Account account, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
-        return this.accountService.updateAccount(id, account, accountName, password);
+    public ResponseEntity<Account> updateAccount(@PathVariable("id") long id, @RequestBody Account account, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
+        Account updatedAccount = this.accountService.updateAccount(id, account, accountName, password);
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+        if(updatedAccount == null) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+
+        return new ResponseEntity<Account>(updatedAccount, status);
     }
 
     @PutMapping("/account/{id}/disable")
-    public Account disableAccount(@PathVariable("id") long id, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
-        return this.accountService.toggleAccountVisibility(id, accountName, password);
+    public ResponseEntity<Account> disableAccount(@PathVariable("id") long id, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
+        Account updatedAccount = this.accountService.toggleAccountVisibility(id, accountName, password);
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+        if(updatedAccount == null) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+        
+        return new ResponseEntity<Account>(updatedAccount, status);
     }
 
     @DeleteMapping("/account/{id}")
-    public void deleteAccount(@PathVariable("id") long id, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
-        this.accountService.deleteAccount(id, accountName, password);
+    public ResponseEntity<String> deleteAccount(@PathVariable("id") long id, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+        if(!this.accountService.deleteAccount(id, accountName, password)) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+        
+        return new ResponseEntity<>(null, status);
     }
 }

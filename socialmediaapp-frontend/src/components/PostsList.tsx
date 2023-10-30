@@ -22,8 +22,8 @@ export function PostsList(){
     }, []);
 
     return (
-        <>
+        <div>
             {allPosts.map(post => <PostCard refreshPostData={refreshPostData} post={post} key={post.postId}></PostCard>)}
-        </>
+        </div>
     )
 }
